@@ -26,18 +26,6 @@ resource "aws_subnet" "myapp-subnet-1" {
     }
 }
 
-# resource "aws_route_table" "myapp-route-table"{
-#     vpc_id = aws_vpc.myapp-vpc.id
-
-#     route {
-#         cidr_block = "0.0.0.0/0"
-#         gateway_id = aws_internet_gateway.myapp-igw.id
-#     }
-#     tags = {
-#         Name: "${var.env_prefix}-rtb"
-#     }
-# }
-
 resource "aws_internet_gateway" "myapp-igw" {
     vpc_id = aws_vpc.myapp-vpc.id
     tags = {
@@ -45,10 +33,6 @@ resource "aws_internet_gateway" "myapp-igw" {
     }
 }
 
-# resource "aws_route_table_association" "a-rtb-subnet" {
-#     subnet_id = aws_subnet.myapp-subnet-1.id
-#     route_table_id = aws_route_table.myapp-route-table.id
-# }
 
 resource "aws_default_route_table" "main-rtb" {
     default_route_table_id = aws_vpc.myapp-vpc.default_route_table_id
@@ -139,25 +123,3 @@ resource "aws_instance" "myapp-server"{
     }
 }
 
-
-
-
-# resource "aws_vpc" "development-vpc" {
-#     cidr_block = "10.0.0.0/16"
-# }
-
-# resource "aws_subnet" "dev-subnet-1" {
-#     vpc_id = aws_vpc.development-vpc.id
-#     cidr_block = "10.0.10.0/24"
-#     availability_zone = "eu-central-1a"
-# }
-
-# data "aws_vpc" "existing_vpc" {
-#     default = true
-# }
-
-# resource "aws_subnet" "dev-subnet-2" {
-#     vpc_id = data.aws_vpc.development-vpc.id
-#     cidr_block = "172.31.48.0/20"
-#     availability_zone = "eu-central-1a"
-# }
